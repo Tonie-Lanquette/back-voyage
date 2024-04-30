@@ -13,8 +13,40 @@ class AvBooking
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\ManyToOne(inversedBy: 'avBookings')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?avStatus $avStatus = null;
+
+    #[ORM\ManyToOne(inversedBy: 'avBookings')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?avTravels $avTravels = null;
+
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getAvStatus(): ?avStatus
+    {
+        return $this->avStatus;
+    }
+
+    public function setAvStatus(?avStatus $avStatus): static
+    {
+        $this->avStatus = $avStatus;
+
+        return $this;
+    }
+
+    public function getAvTravels(): ?avTravels
+    {
+        return $this->avTravels;
+    }
+
+    public function setAvTravels(?avTravels $avTravels): static
+    {
+        $this->avTravels = $avTravels;
+
+        return $this;
     }
 }
