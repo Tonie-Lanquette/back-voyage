@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New AvCategories{% endblock %}
+
+{% block body %}
+    <h1>Create new AvCategories</h1>
+
+    {{ include('av_categories/_form.html.twig') }}
+
+    <a href="{{ path('app_av_categories_index') }}">back to list</a>
+{% endblock %}
