@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AvCountriesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AvCountriesRepository::class)]
@@ -15,6 +17,17 @@ class AvCountries
 
     #[ORM\Column(length: 50)]
     private ?string $name = null;
+
+    /**
+     * @var Collection<int, AvTravels>
+     */
+    #[ORM\ManyToMany(targetEntity: AvTravels::class, mappedBy: 'avCountries')]
+    private Collection $avTravels;
+
+    public function __construct()
+    {
+        $this->avTravels = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -29,6 +42,33 @@ class AvCountries
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, AvTravels>
+     */
+    public function getAvTravels(): Collection
+    {
+        return $this->avTravels;
+    }
+
+    public function addAvTravel(AvTravels $avTravel): static
+    {
+        if (!$this->avTravels->contains($avTravel)) {
+            $this->avTravels->add($avTravel);
+            $avTravel->addAvCountry($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAvTravel(AvTravels $avTravel): static
+    {
+        if ($this->avTravels->removeElement($avTravel)) {
+            $avTravel->removeAvCountry($this);
+        }
 
         return $this;
     }

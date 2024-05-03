@@ -16,10 +16,3 @@ class HomeController extends AbstractController
         ]);
     }
 }
-// class HomeController
-// {
-//     public function index(): Response
-//     {
-//         return new Response("Hello World !");
-//     }
-// }

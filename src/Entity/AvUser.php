@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AvUserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -39,6 +41,24 @@ class AvUser implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 15)]
     private ?string $phone = null;
+
+    /**
+     * @var Collection<int, AvTravels>
+     */
+    #[ORM\OneToMany(targetEntity: AvTravels::class, mappedBy: 'avUser')]
+    private Collection $avTravels;
+
+    /**
+     * @var Collection<int, avForms>
+     */
+    #[ORM\OneToMany(targetEntity: avForms::class, mappedBy: 'avUser')]
+    private Collection $avForms;
+
+    public function __construct()
+    {
+        $this->avTravels = new ArrayCollection();
+        $this->avForms = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -146,6 +166,66 @@ class AvUser implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPhone(string $phone): static
     {
         $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, AvTravels>
+     */
+    public function getAvTravels(): Collection
+    {
+        return $this->avTravels;
+    }
+
+    public function addAvTravel(AvTravels $avTravel): static
+    {
+        if (!$this->avTravels->contains($avTravel)) {
+            $this->avTravels->add($avTravel);
+            $avTravel->setAvUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAvTravel(AvTravels $avTravel): static
+    {
+        if ($this->avTravels->removeElement($avTravel)) {
+            // set the owning side to null (unless already changed)
+            if ($avTravel->getAvUser() === $this) {
+                $avTravel->setAvUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, avForms>
+     */
+    public function getAvForms(): Collection
+    {
+        return $this->avForms;
+    }
+
+    public function addAvForm(avForms $avForm): static
+    {
+        if (!$this->avForms->contains($avForm)) {
+            $this->avForms->add($avForm);
+            $avForm->setAvUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAvForm(avForms $avForm): static
+    {
+        if ($this->avForms->removeElement($avForm)) {
+            // set the owning side to null (unless already changed)
+            if ($avForm->getAvUser() === $this) {
+                $avForm->setAvUser(null);
+            }
+        }
 
         return $this;
     }
