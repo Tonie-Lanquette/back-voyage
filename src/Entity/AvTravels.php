@@ -34,7 +34,7 @@ class AvTravels
     /**
      * @var Collection<int, avCountries>
      */
-    #[ORM\ManyToMany(targetEntity: avCountries::class, inversedBy: 'avTravels')]
+    #[ORM\ManyToMany(targetEntity: AvCountries::class, inversedBy: 'avTravels')]
     private Collection $avCountries;
 
     /**
