@@ -54,12 +54,12 @@ class AvUserController extends AbstractController
     public function edit(Request $request, AvUser $avUser, EntityManagerInterface $entityManager): Response
     {
         
-        $form = $this->createForm(AvUserType::class, $avUser, ['method' => 'PUT']);
+        $form = $this->createForm(AvUserType::class, $avUser, ['method' => 'POST']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-dd($request);
+
             return $this->redirectToRoute('app_av_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
