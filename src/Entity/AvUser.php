@@ -36,25 +36,25 @@ class AvUser implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     #[Assert\NotBlank(message: "Le mot de passe ne peut pas être vide.")]
-    #[Assert\Length(min: 5, max: 50, minMessage: "Le mot de passe doit comporter plus de 5 caractères.", maxMessage: "Le mot de passe doit comporter maximum 500 caractères.")]
+    #[Assert\Length(min: 5, max: 70, minMessage: "Le mot de passe doit comporter plus de {{ limit }} caractères.", maxMessage: "Le mot de passe doit comporter maximum {{ limit }} caractères.")]
     #[Assert\NoSuspiciousCharacters(checks: NoSuspiciousCharacters::CHECK_INVISIBLE, restrictionLevel: NoSuspiciousCharacters::RESTRICTION_LEVEL_HIGH)]
     private ?string $password = null;
 
     #[ORM\Column(length: 100)]
     #[Assert\NotBlank(message: "Le prénom ne peut pas être vide.")]
-    #[Assert\Length(min: 5, max: 50, minMessage: "Le prénom doit comporter plus de 5 caractères.", maxMessage: "Le prénom doit comporter maximum 500 caractères.")]
+    #[Assert\Length(min: 5, max: 50, minMessage: "Le prénom doit comporter plus de {{ limit }} caractères.", maxMessage: "Le prénom doit comporter maximum {{ limit }} caractères.")]
     #[Assert\NoSuspiciousCharacters(checks: NoSuspiciousCharacters::CHECK_INVISIBLE, restrictionLevel: NoSuspiciousCharacters::RESTRICTION_LEVEL_HIGH)]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 100)]
     #[Assert\NotBlank(message: "Le nom ne peut pas être vide.")]
-    #[Assert\Length(min: 5, max: 50, minMessage: "Le nom doit comporter plus de 5 caractères.", maxMessage: "Le nom doit comporter maximum 500 caractères.")]
+    #[Assert\Length(min: 5, max: 50, minMessage: "Le nom doit comporter plus de {{ limit }} caractères.", maxMessage: "Le nom doit comporter maximum {{ limit }} caractères.")]
     #[Assert\NoSuspiciousCharacters(checks: NoSuspiciousCharacters::CHECK_INVISIBLE, restrictionLevel: NoSuspiciousCharacters::RESTRICTION_LEVEL_HIGH)]
     private ?string $lastName = null;
 
     #[ORM\Column(length: 15)]
     #[Assert\NotBlank(message: "Le numéro de téléphone ne peut pas être vide.")]
-    #[Assert\Length(min: 10, max: 15, minMessage: "Le numéro de téléphone doit comporter plus de 10 caractères.", maxMessage: "Le numéro de téléphone doit comporter maximum 500 caractères.")]
+    #[Assert\Length(min: 10, max: 15, minMessage: "Le numéro de téléphone doit comporter plus de {{ limit }} caractères.", maxMessage: "Le numéro de téléphone doit comporter maximum {{ limit }} caractères.")]
     #[Assert\NoSuspiciousCharacters(checks: NoSuspiciousCharacters::CHECK_INVISIBLE, restrictionLevel: NoSuspiciousCharacters::RESTRICTION_LEVEL_HIGH)]
     private ?string $phone = null;
 

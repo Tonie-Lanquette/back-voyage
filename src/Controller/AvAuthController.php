@@ -14,7 +14,7 @@ class AvAuthController extends AbstractController
     {
 
         if($this->getUser()){
-            return $this->redirectToRoute('app_av_users');
+            return $this->redirectToRoute('app_av_user_index');
         }
 
         // get the login error if there is one

@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/av/user')]
@@ -51,13 +52,14 @@ class AvUserController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_av_user_edit', methods: ['GET', 'POST', 'PUT'])]
-    public function edit(Request $request, AvUser $avUser, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, AvUser $avUser, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userHasher): Response
     {
         
         $form = $this->createForm(AvUserType::class, $avUser, ['method' => 'POST']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $avUser->setPassword($userHasher->hashPassword($avUser,$form->get('password')->getData()));
             $entityManager->flush();
 
             return $this->redirectToRoute('app_av_user_index', [], Response::HTTP_SEE_OTHER);

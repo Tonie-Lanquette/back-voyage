@@ -5,8 +5,11 @@ namespace App\Form;
 use App\Entity\AvUser;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class AvUserType extends AbstractType
 {
@@ -24,7 +27,19 @@ class AvUserType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
             ])
-            ->add('password')
+            ->add('password', PasswordType::class, [
+                'attr' => ['autocomplete' => 'new-password'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a password',
+                    ]),
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'max' => 45,
+                    ]),
+                ],
+            ])
             ->add('firstName')
             ->add('lastName')
             ->add('phone')
