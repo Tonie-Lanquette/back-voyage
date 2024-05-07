@@ -21,8 +21,7 @@ class RegistrationFormType extends AbstractType
             ->add('lastName')
             ->add('phone')
             ->add('email')
-            ->add('plainPassword', PasswordType::class, [
-                'mapped' => false,
+            ->add('password', PasswordType::class, [
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
@@ -36,11 +35,9 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
 
-            
             ->add('inscription', SubmitType::class, [
-                'label' => "s'inscrire"
+                'label' => "s'inscrire",
             ]);
-    
     }
 
     public function configureOptions(OptionsResolver $resolver): void

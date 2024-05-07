@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\AvUser;
-use App\Form\AvUserType;
 use App\Form\RegistrationFormType;
 use App\Repository\AvUserRepository;
 use App\Security\EmailVerifier;
@@ -24,27 +23,29 @@ class RegistrationController extends AbstractController
     {
     }
 
-
-    // prendre en post
-    #[Route('/av/register', name: 'app_av_register')] 
+    #[Route('/av/register', name: 'app_av_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = new AvUser();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
+        // dd($request->request->all());
+
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword(
-                    $userPasswordHasher->hashPassword(
+                $userPasswordHasher->hashPassword(
                     $user,
-                    $form->get('plainPassword')->getData()
+                    $form->get('password')->getData()
                 )
             );
 
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            $this->emailVerifier->sendEmailConfirmation(
+                'app_verify_email',
+                $user,
                 (new TemplatedEmail())
                     ->from(new Address('tonie.lanquette.simplon@gmail.com', 'Agence de voyage registration'))
                     ->to($user->getEmail())
@@ -75,7 +76,7 @@ class RegistrationController extends AbstractController
         if (null === $user) {
             return $this->redirectToRoute('app_av_register');
         }
-        
+
         try {
             $this->emailVerifier->handleEmailConfirmation($request, $this->getUser());
         } catch (VerifyEmailExceptionInterface $exception) {
@@ -84,7 +85,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('app_register');
         }
 
-        
+
         $this->addFlash('success', 'Your email address has been verified.');
 
         return $this->redirectToRoute('app_av_auth');

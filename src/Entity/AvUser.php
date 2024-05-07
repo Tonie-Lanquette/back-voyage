@@ -35,25 +35,25 @@ class AvUser implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
-    #[Assert\NotBlank(message: "Le champs ne peut pas être vide.")]
+    #[Assert\NotBlank(message: "Le password ne peut pas être vide.")]
     #[Assert\Length(min: 5, max: 50, minMessage: "L'intitulé doit comporter plus de 5 caractères.", maxMessage: "L'intitulé doit comporter maximum 500 caractères.")]
     #[Assert\NoSuspiciousCharacters(checks: NoSuspiciousCharacters::CHECK_INVISIBLE, restrictionLevel: NoSuspiciousCharacters::RESTRICTION_LEVEL_HIGH)]
     private ?string $password = null;
 
     #[ORM\Column(length: 100)]
-    #[Assert\NotBlank(message: "Le champs ne peut pas être vide.")]
+    #[Assert\NotBlank(message: "Le firstName ne peut pas être vide.")]
     #[Assert\Length(min: 5, max: 50, minMessage: "Le champs doit comporter plus de 5 caractères.", maxMessage: "Le champs doit comporter maximum 500 caractères.")]
     #[Assert\NoSuspiciousCharacters(checks: NoSuspiciousCharacters::CHECK_INVISIBLE, restrictionLevel: NoSuspiciousCharacters::RESTRICTION_LEVEL_HIGH)]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 100)]
-    #[Assert\NotBlank(message: "Le champs ne peut pas être vide.")]
+    #[Assert\NotBlank(message: "Le lastName ne peut pas être vide.")]
     #[Assert\Length(min: 5, max: 50, minMessage: "Le champs doit comporter plus de 5 caractères.", maxMessage: "Le champs doit comporter maximum 500 caractères.")]
     #[Assert\NoSuspiciousCharacters(checks: NoSuspiciousCharacters::CHECK_INVISIBLE, restrictionLevel: NoSuspiciousCharacters::RESTRICTION_LEVEL_HIGH)]
     private ?string $lastName = null;
 
     #[ORM\Column(length: 15)]
-    #[Assert\NotBlank(message: "Le champs ne peut pas être vide.")]
+    #[Assert\NotBlank(message: "Le phone ne peut pas être vide.")]
     #[Assert\Length(min: 10, max: 15, minMessage: "Le champs doit comporter plus de 10 caractères.", maxMessage: "Le champs doit comporter maximum 500 caractères.")]
     #[Assert\NoSuspiciousCharacters(checks: NoSuspiciousCharacters::CHECK_INVISIBLE, restrictionLevel: NoSuspiciousCharacters::RESTRICTION_LEVEL_HIGH)]
     private ?string $phone = null;

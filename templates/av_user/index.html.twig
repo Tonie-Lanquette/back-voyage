@@ -29,8 +29,8 @@
                 <td>{{ av_user.lastName }}</td>
                 <td>{{ av_user.phone }}</td>
                 <td>
-                    <a href="{{ path('app_av_user_show', {'name': av_user.name}) }}">show</a>
-                    <a href="{{ path('app_av_user_edit', {'name': av_user.name}) }}">edit</a>
+                    <a href="{{ path('app_av_user_show', {'id': av_user.id}) }}">show</a>
+                    <a href="{{ path('app_av_user_edit', {'id': av_user.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
