@@ -1,35 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}AvCategories index{% endblock %}
+{% block title %}Categories{% endblock %}
 
 {% block body %}
-    <h1>AvCategories index</h1>
+    <h1>Categories</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for av_category in av_categories %}
-            <tr>
-                <td>{{ av_category.id }}</td>
-                <td>{{ av_category.name }}</td>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg w-5/6">
+        <table class="w-full text-sm text-left rtl:text-right text-grey-950 dark:text-white">
+            <thead class="text-xs text-gray-950 uppercase bg-green-300 dark:bg-green-800 dark:text-white">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                    ID
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <div class="flex items-center">
+                            Name
+                        </div>
+                    </th>
+                     <th scope="col" class="px-6 py-3">
+                        <div class="flex items-end">
+                            Action
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for av_category in av_categories %}
+                <tr class="bg-white border-b dark:bg-gray-700 dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{ av_category.id }}
+                    </th>
+                    <td class="px-6 py-4">
+                        {{ av_category.name }}
+                    </td>
+                
                 <td>
-                    <a href="{{ path('app_av_categories_show', {'name': av_category.name}) }}">show</a>
-                    <a href="{{ path('app_av_categories_edit', {'name': av_category.name}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_av_categories_new') }}">Create new</a>
+                        <a href="{{ path('app_av_categories_show', {'name': av_category.name}) }}">show</a>
+                        <a href="{{ path('app_av_categories_edit', {'name': av_category.name}) }}">edit</a>
+                    </td>
+                </tr> 
+                {% endfor %}
+            </tbody>
+        </table>
+</div>
+<a href="{{ path('app_av_categories_new') }}">Create new</a>
 {% endblock %}
