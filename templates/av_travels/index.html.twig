@@ -14,6 +14,8 @@
                 <th>DateStart</th>
                 <th>Duration</th>
                 <th>Price</th>
+                <th>Categories</th>
+                <th>Countries</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -21,11 +23,23 @@
         {% for av_travel in av_travels %}
             <tr>
                 <td>{{ av_travel.id }}</td>
-                <td>{{ av_travel.picture }}</td>
+                <td><img src="{{ av_travel.picture }}" alt="Travel Image"></td>
                 <td>{{ av_travel.name }}</td>
                 <td>{{ av_travel.dateStart ? av_travel.dateStart|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ av_travel.duration }}</td>
                 <td>{{ av_travel.price }}</td>
+                 <td>
+                    {% for category in av_travel.avCategories %}
+                        {{ category.name }}
+                        {% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for country in av_travel.avCountries %}
+                        {{ country.name }}
+                        {% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
                 <td>
                     <a href="{{ path('app_av_travels_show', {'name': av_travel.name}) }}">show</a>
                     <a href="{{ path('app_av_travels_edit', {'name': av_travel.name}) }}">edit</a>

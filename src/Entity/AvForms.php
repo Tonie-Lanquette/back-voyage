@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\AvFormsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\NoSuspiciousCharacters;
 
 #[ORM\Entity(repositoryClass: AvFormsRepository::class)]
 class AvForms
@@ -14,6 +16,9 @@ class AvForms
     private ?int $id = null;
 
     #[ORM\Column(length: 500)]
+    #[Assert\NotBlank(message: "Le message ne peut pas être vide.")]
+    #[Assert\Length(min: 5, max: 500, minMessage: "Le message doit comporter plus de {{ limit }} caractères.", maxMessage: "Le message doit comporter maximum {{ limit }} caractères.")]
+    #[Assert\NoSuspiciousCharacters(checks: NoSuspiciousCharacters::CHECK_INVISIBLE, restrictionLevel: NoSuspiciousCharacters::RESTRICTION_LEVEL_HIGH)]
     private ?string $message = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
