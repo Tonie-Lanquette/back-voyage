@@ -15,7 +15,7 @@
     </head>
 
 
-    {# {% if app.user %}
+    {% if app.user %}
         <header class ="flex w-100 h-24 bg-white font-bold ">
             <div class="flex hover:bg-green-200 rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_travels_index') }}">Travels</a></div>
             <div class="flex hover:bg-green-300 rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_categories_index') }}">Categories</a></div>
@@ -32,8 +32,8 @@
              <script>window.location.href = "{{ path('app_av_login') }}";</script>
             {% endif %}
         {% endblock %}
-    </body>  
-
+    </body> 
+{# 
     {% if not app.user %}
         <script>window.location.href = "{{ path('app_av_login') }}";</script>
             <body class="w-full h-screen bg-gray-100">
@@ -54,6 +54,6 @@
          {% block body %}
          {% endblock %}
           </body>
-    {% endif %}
+    {% endif %} #}
 
 </html>
