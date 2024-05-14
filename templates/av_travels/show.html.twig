@@ -60,12 +60,14 @@
 <div class="rounded bg-gray-500 w-fit px-4 py-2 my-4">
     <a href="{{ path('app_av_travels_index') }}">back to list</a>
  </div>
+ {% if is_granted('ROLE_ADMIN') or app.user.id == av_travel.avUser.id %}
   <div class="rounded bg-gray-500 w-fit px-4 py-2 my-4">
     <a href="{{ path('app_av_travels_edit', {'name': av_travel.name}) }}">edit</a>
  </div>
  <div class="rounded bg-red-500 w-fit px-4 py-2 my-4">
     {{ include('av_travels/_delete_form.html.twig') }}
  </div>
+ {% endif %} 
 </div>
 
 {% endblock %}

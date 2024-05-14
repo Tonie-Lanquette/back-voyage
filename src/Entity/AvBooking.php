@@ -21,6 +21,10 @@ class AvBooking
     #[ORM\JoinColumn(nullable: false)]
     private ?avTravels $avTravels = null;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?avForms $avForms = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -46,6 +50,18 @@ class AvBooking
     public function setAvTravels(?avTravels $avTravels): static
     {
         $this->avTravels = $avTravels;
+
+        return $this;
+    }
+
+    public function getAvForms(): ?avForms
+    {
+        return $this->avForms;
+    }
+
+    public function setAvForms(avForms $avForms): static
+    {
+        $this->avForms = $avForms;
 
         return $this;
     }

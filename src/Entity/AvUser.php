@@ -42,7 +42,7 @@ class AvUser implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 100)]
     #[Assert\NotBlank(message: "Le prénom ne peut pas être vide.")]
-    #[Assert\Length(min: 5, max: 50, minMessage: "Le prénom doit comporter plus de {{ limit }} caractères.", maxMessage: "Le prénom doit comporter maximum {{ limit }} caractères.")]
+    #[Assert\Length(min: 3, max: 50, minMessage: "Le prénom doit comporter plus de {{ limit }} caractères.", maxMessage: "Le prénom doit comporter maximum {{ limit }} caractères.")]
     #[Assert\NoSuspiciousCharacters(checks: NoSuspiciousCharacters::CHECK_INVISIBLE, restrictionLevel: NoSuspiciousCharacters::RESTRICTION_LEVEL_HIGH)]
     private ?string $firstName = null;
 

@@ -3,6 +3,7 @@
 {% block title %}AvCategories{% endblock %}
 
 {% block body %}
+{% if is_granted('ROLE_ADMIN') %}
     <h1>AvCategories</h1>
 
     <table class="table">
@@ -23,4 +24,7 @@
     <a href="{{ path('app_av_categories_edit', {'name': av_category.name}) }}">edit</a>
 
     {{ include('av_categories/_delete_form.html.twig') }}
+    {% else %}
+<script>window.location.href = "{{ path('app_av_travels_index') }}";</script>
+{% endif %}
 {% endblock %}
