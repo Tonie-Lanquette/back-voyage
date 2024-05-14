@@ -1,11 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New AvTravels{% endblock %}
+{% block title %}New Travels{% endblock %}
 
 {% block body %}
-    <h1>Create new AvTravels</h1>
+    
+    <div class="flex flex-col w-full h-5/6 items-center justify-center "> 
+    <div class="w-1/3 dark:bg-gray-800 bg-white px-10 py-16 rounded-lg">
+        <h1 class="text-center font-bold mb-10">Creat travel</h1>
+        {{ include('av_travels/_form.html.twig') }}
+        
 
-    {{ include('av_travels/_form.html.twig') }}
+    </div> 
+    <div class="rounded bg-gray-500 w-fit px-4 py-2 my-4">
+        <a href="{{ path('app_av_categories_index') }}">back to list</a>
+    </div>
+</div>
 
-    <a href="{{ path('app_av_travels_index') }}">back to list</a>
+    
+
 {% endblock %}

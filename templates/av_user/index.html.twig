@@ -3,9 +3,100 @@
 {% block title %}AvUser index{% endblock %}
 
 {% block body %}
-    <h1>AvUser index</h1>
 
-    <table class="table">
+<div <div class="flex flex-col items-center w-full mt-20">
+<a class="hover:dark:bg-green-600 dark:bg-green-700 bg-green-600 hover:bg-green-700 px-2 py-1 rounded" href="{{ path('app_av_user_new') }}">Create new user</a>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg w-5/6 mt-10">
+        <table class="w-full text-sm text-left rtl:text-right text-grey-950 dark:text-white">
+            <thead class="text-xs text-gray-950 uppercase bg-green-600 dark:bg-green-800 dark:text-white">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        ID
+                    </th> 
+                    <th scope="col" class="px-6 py-3">
+                        <div class="flex justify-center">
+                            First Name
+                        </div>
+                    </th>
+                     <th scope="col" class="px-6 py-3">
+                        <div class="flex justify-center">
+                            Last Name
+                        </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <div class="flex justify-center">
+                            Email
+                        </div>
+                    </th>
+                     <th scope="col" class="px-6 py-3">
+                        <div class="flex justify-center">
+                            Password
+                        </div>
+                    </th>                   
+                    <th scope="col" class="px-6 py-3">
+                        <div class="flex justify-center">
+                            Phone
+                        </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <div class="flex justify-center">
+                            Role
+                        </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <div class="flex justify-end">
+                            Action
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+
+            {% for av_user in av_users %}
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{ av_user.id }}
+                    </th>
+                    <td class="px-6 py-4">
+                        <div class="flex justify-center">
+                            {{ av_user.firstName }}
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="flex justify-center">
+                            {{ av_user.lastName }}
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="flex justify-center">
+                            {{ av_user.email }}
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="flex justify-center">
+                            {{ av_user.password }}
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="flex justify-center">
+                            {{ av_user.phone }}
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="flex justify-center">
+                            {{ av_user.roles ? av_user.roles|json_encode : '' }}
+                        </div>
+                    </td>
+                    <td class="flex justify-end px-5 py-3">
+                        <a class="hover:dark:bg-green-700 hover:bg-green-600 px-2 py-1 rounded mx-1" href="{{ path('app_av_user_show', {'id': av_user.id}) }}">show</a>
+                        <a class="hover:dark:bg-green-700 hover:bg-green-600 px-2 py-1 rounded" href="{{ path('app_av_user_edit', {'id': av_user.id}) }}">edit</a>
+                    </td>
+                </tr> 
+                {% endfor %}
+            </tbody>
+        </table>
+</div>
+{# <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -42,5 +133,5 @@
     </table>
 
     <a href="{{ path('app_av_user_new') }}">Create new</a>
-     <a href="{{ path('app_av_logout') }}">Log out</a>
+     <a href="{{ path('app_av_logout') }}">Log out</a> #}
 {% endblock %}
