@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\NoSuspiciousCharacters;
 
@@ -16,39 +17,46 @@ class AvTravels
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['api_av_travels_index'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 500)]
     #[Assert\NotBlank(message: "L'image ne peut pas être vide.")]
     #[Assert\Length(min: 5, max: 500, minMessage: "Le lien doit comporter plus de {{ limit }} caractères.", maxMessage: "Le lien doit comporter maximum {{ limit }} caractères.")]
     #[Assert\NoSuspiciousCharacters(checks: NoSuspiciousCharacters::CHECK_INVISIBLE, restrictionLevel: NoSuspiciousCharacters::RESTRICTION_LEVEL_HIGH)]
+    #[Groups(['api_av_travels_index'])]
     private ?string $picture = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "Le nom du voyage ne peut pas être vide.")]
     #[Assert\Length(min: 5, max: 70, minMessage: "Le nom du voyage doit comporter plus de {{ limit }} caractères.", maxMessage: "Le nom du voyage doit comporter maximum {{ limit }} caractères.")]
     #[Assert\NoSuspiciousCharacters(checks: NoSuspiciousCharacters::CHECK_INVISIBLE, restrictionLevel: NoSuspiciousCharacters::RESTRICTION_LEVEL_HIGH)]
+    #[Groups(['api_av_travels_index'])]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Groups(['api_av_travels_index'])]
     private ?\DateTimeInterface $dateStart = null;
 
     #[ORM\Column]
     #[Assert\NotBlank(message: "La durée du voyage ne peut pas être vide.")]
     #[Assert\Length(min: 1, max: 100, minMessage: "La durée du voyage doit comporter plus de {{ limit }} caractères.", maxMessage: "La durée du voyage doit comporter maximum {{ limit }} caractères.")]
     #[Assert\NoSuspiciousCharacters(checks: NoSuspiciousCharacters::CHECK_INVISIBLE, restrictionLevel: NoSuspiciousCharacters::RESTRICTION_LEVEL_HIGH)]
+    #[Groups(['api_av_travels_index'])]
     private ?int $duration = null;
 
     #[ORM\Column]
     #[Assert\NotBlank(message: "Le prix du voyage ne peut pas être vide.")]
     #[Assert\Length(min: 2, max: 10, minMessage: "Le prix du voyage doit comporter plus de {{ limit }} caractères.", maxMessage: "Le prix du voyage doit comporter maximum {{ limit }} caractères.")]
     #[Assert\NoSuspiciousCharacters(checks: NoSuspiciousCharacters::CHECK_INVISIBLE, restrictionLevel: NoSuspiciousCharacters::RESTRICTION_LEVEL_HIGH)]
+    #[Groups(['api_av_travels_index'])]
     private ?int $price = null;
 
     /**
      * @var Collection<int, avCountries>
      */
     #[ORM\ManyToMany(targetEntity: AvCountries::class, inversedBy: 'avTravels')]
+    #[Groups(['api_av_travels_show'])]
     private Collection $avCountries;
 
    
@@ -57,6 +65,7 @@ class AvTravels
      * @var Collection<int, AvBooking>
      */
     #[ORM\OneToMany(targetEntity: AvBooking::class, mappedBy: 'avTravels')]
+    // #[Groups(['api_av_travels_index'])]
     private Collection $avBookings;
 
     #[ORM\ManyToOne(inversedBy: 'avTravels')]
@@ -67,6 +76,7 @@ class AvTravels
      * @var Collection<int, AvCategories>
      */
     #[ORM\ManyToMany(targetEntity: AvCategories::class, inversedBy: 'avTravels')]
+    #[Groups(['api_av_travels_show'])]
     private Collection $AvCategories;
 
     public function __construct()
