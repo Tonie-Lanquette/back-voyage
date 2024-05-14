@@ -24,10 +24,11 @@ class AvCategories
     private ?string $name = null;
 
     /**
-     * @var Collection<int, avTravels>
+     * @var Collection<int, AvTravels>
      */
-    #[ORM\ManyToMany(targetEntity: avTravels::class, inversedBy: 'avCategories')]
+    #[ORM\ManyToMany(targetEntity: AvTravels::class, mappedBy: 'AvCategories')]
     private Collection $avTravels;
+
 
     public function __construct()
     {
@@ -52,26 +53,30 @@ class AvCategories
     }
 
     /**
-     * @return Collection<int, avTravels>
+     * @return Collection<int, AvTravels>
      */
     public function getAvTravels(): Collection
     {
         return $this->avTravels;
     }
 
-    public function addAvTravel(avTravels $avTravel): static
+    public function addAvTravel(AvTravels $avTravel): static
     {
         if (!$this->avTravels->contains($avTravel)) {
             $this->avTravels->add($avTravel);
+            $avTravel->addAvCategory($this);
         }
 
         return $this;
     }
 
-    public function removeAvTravel(avTravels $avTravel): static
+    public function removeAvTravel(AvTravels $avTravel): static
     {
-        $this->avTravels->removeElement($avTravel);
+        if ($this->avTravels->removeElement($avTravel)) {
+            $avTravel->removeAvCategory($this);
+        }
 
         return $this;
     }
+
 }

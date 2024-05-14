@@ -51,11 +51,7 @@ class AvTravels
     #[ORM\ManyToMany(targetEntity: AvCountries::class, inversedBy: 'avTravels')]
     private Collection $avCountries;
 
-    /**
-     * @var Collection<int, AvCategories>
-     */
-    #[ORM\ManyToMany(targetEntity: AvCategories::class, mappedBy: 'avTravels')]
-    private Collection $avCategories;
+   
 
     /**
      * @var Collection<int, AvBooking>
@@ -67,11 +63,18 @@ class AvTravels
     #[ORM\JoinColumn(nullable: false)]
     private ?avUser $avUser = null;
 
+    /**
+     * @var Collection<int, AvCategories>
+     */
+    #[ORM\ManyToMany(targetEntity: AvCategories::class, inversedBy: 'avTravels')]
+    private Collection $AvCategories;
+
     public function __construct()
     {
         $this->avCountries = new ArrayCollection();
-        $this->avCategories = new ArrayCollection();
+        $this->AvCategories = new ArrayCollection();
         $this->avBookings = new ArrayCollection();
+        $this->AvCategories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -163,32 +166,7 @@ class AvTravels
         return $this;
     }
 
-    /**
-     * @return Collection<int, AvCategories>
-     */
-    public function getAvCategories(): Collection
-    {
-        return $this->avCategories;
-    }
-
-    public function addAvCategory(AvCategories $avCategory): static
-    {
-        if (!$this->avCategories->contains($avCategory)) {
-            $this->avCategories->add($avCategory);
-            $avCategory->addAvTravel($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAvCategory(AvCategories $avCategory): static
-    {
-        if ($this->avCategories->removeElement($avCategory)) {
-            $avCategory->removeAvTravel($this);
-        }
-
-        return $this;
-    }
+    
 
     /**
      * @return Collection<int, AvBooking>
@@ -228,6 +206,30 @@ class AvTravels
     public function setAvUser(?avUser $avUser): static
     {
         $this->avUser = $avUser;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, AvCategories>
+     */
+    public function getAvCategories(): Collection
+    {
+        return $this->AvCategories;
+    }
+
+    public function addAvCategory(AvCategories $avCategory): static
+    {
+        if (!$this->AvCategories->contains($avCategory)) {
+            $this->AvCategories->add($avCategory);
+        }
+
+        return $this;
+    }
+
+    public function removeAvCategory(AvCategories $avCategory): static
+    {
+        $this->AvCategories->removeElement($avCategory);
 
         return $this;
     }
