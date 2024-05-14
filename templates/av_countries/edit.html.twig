@@ -1,13 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit AvCountries{% endblock %}
+{% block title %}Edit Countries{% endblock %}
 
 {% block body %}
-    <h1>Edit AvCountries</h1>
+    
+<div class="flex flex-col w-full h-5/6 items-center justify-center "> 
+    <div class="w-1/3 dark:bg-gray-800 bg-white px-10 py-16 rounded-lg">
+        <h1 class="text-center font-bold mb-10">Edit countries</h1>
+        {{ include('av_countries/_form.html.twig', {'button_label': 'Update'}) }}
+        <div class="rounded bg-red-500 w-fit px-4 py-2 my-4">
+        {{ include('av_countries/_delete_form.html.twig') }}
+        </div>
+        
 
-    {{ include('av_countries/_form.html.twig', {'button_label': 'Update'}) }}
+    </div> 
+    <div class="rounded bg-gray-500 w-fit px-4 py-2 my-4">
+         <a href="{{ path('app_av_countries_index') }}">back to list</a>
+    </div>
+</div>
 
-    <a href="{{ path('app_av_countries_index') }}">back to list</a>
+    
 
-    {{ include('av_countries/_delete_form.html.twig') }}
+   
+
+    
 {% endblock %}

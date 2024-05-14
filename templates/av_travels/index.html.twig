@@ -3,9 +3,119 @@
 {% block title %}AvTravels index{% endblock %}
 
 {% block body %}
-    <h1>AvTravels index</h1>
+<div <div class="flex flex-col items-center w-full mt-20">
+    <a class="hover:dark:bg-green-600 dark:bg-green-700 bg-green-200 hover:bg-green-300 px-2 py-1 rounded" href="{{ path('app_av_travels_new') }}">Create new travel</a>
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg w-5/6 mt-10">
+            <table class="w-full text-sm text-left rtl:text-right text-grey-950 dark:text-white">
+                <thead class="text-xs text-gray-950 uppercase bg-green-200 dark:bg-green-800 dark:text-white">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            ID
+                        </th> 
+                        <th scope="col" class="px-6 py-3">
+                            <div class="flex justify-center">
+                                Picture
+                            </div>
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            <div class="flex justify-center">
+                                Name
+                            </div>
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            <div class="flex justify-center">
+                                Starting date
+                            </div>
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            <div class="flex justify-center">
+                                Duration
+                            </div>
+                        </th>                   
+                        <th scope="col" class="px-6 py-3">
+                            <div class="flex justify-center">
+                                Price
+                            </div>
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            <div class="flex justify-center">
+                                Categories
+                            </div>
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            <div class="flex justify-center">
+                                Countries
+                            </div>
+                        </th>
+                        
+                        <th scope="col" class="px-6 py-3">
+                            <div class="flex justify-end">
+                                Action
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
 
-    <table class="table">
+                {% for av_travel in av_travels %}
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 ">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{ av_travel.id }}
+                        </th>
+                        <td class="px-6 py-4">
+                            <div class="flex justify-center">
+                                <img src="{{ av_travel.picture }}" alt="Travel Image">
+                            </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="flex justify-center">
+                                {{ av_travel.name }}
+                            </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="flex justify-center">
+                                {{ av_travel.dateStart ? av_travel.dateStart|date('Y-m-d H:i:s') : ''  }}
+                            </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="flex justify-center">
+                                {{ av_travel.duration }}
+                            </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="flex justify-center">
+                                {{ av_travel.price }}
+                            </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="flex justify-center">
+                            {% for category in av_travel.avCategories %}
+                                    {{ category.name }}
+                                    {% if not loop.last %},
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="flex justify-center">
+                            {% for country in av_travel.avCountries %}
+                                    {{ country.name }}
+                                    {% if not loop.last %}, 
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </td>
+                        <td class="flex flex-col items-center px-5 py-3 ">
+                            <a class="hover:dark:bg-green-700 hover:bg-green-200 px-2 py-1 rounded mx-1" href="{{ path('app_av_travels_show', {'name': av_travel.name}) }}">show</a>
+                            <a class="hover:dark:bg-green-700 hover:bg-green-200 px-2 py-1 rounded" href="{{ path('app_av_travels_edit', {'name': av_travel.name}) }}">edit</a>
+                        </td>
+                    </tr> 
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    {# <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -53,5 +163,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_av_travels_new') }}">Create new</a>
+    <a href="{{ path('app_av_travels_new') }}">Create new</a> #}
 {% endblock %}

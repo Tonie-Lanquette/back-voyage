@@ -16,17 +16,38 @@
 
 
     {% if app.user %}
-        <header class ="flex w-100 h-24 bg-white font-bold ">
-            <div class="flex hover:bg-green-200 rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_travels_index') }}">Travels</a></div>
-            <div class="flex hover:bg-green-300 rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_categories_index') }}">Categories</a></div>
-            <div class="flex hover:bg-green-400 rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_countries_index') }}">Countries</a></div>
-            <div class="flex hover:bg-green-500 rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_forms_index') }}">Forms</a></div>
-            <div class="flex hover:bg-green-600 rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_user_index') }}">Profils</a></div>
+        <header class ="flex w-100 h-24 bg-white dark:bg-gray-800 dark:text-white font-bold ">
+        
+            {% if app.request.attributes.get('_route') == 'app_av_travels_index'  %}
+                <div class="flex bg-green-200 rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_travels_index') }}">Travels</a></div>
+            {% else %}
+                <div class="flex hover:bg-green-200 rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_travels_index') }}">Travels</a></div>    
+            {% endif %}
+            {% if app.request.attributes.get('_route') == 'app_av_categories_index'  %}
+                <div class="flex bg-green-300 rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_categories_index') }}">Categories</a></div>
+            {% else %}
+                <div class="flex hover:bg-green-300 rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_categories_index') }}">Categories</a></div> 
+            {% endif %}
+            {% if app.request.attributes.get('_route') == 'app_av_countries_index'  %}
+                <div class="flex bg-green-400 rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_countries_index') }}">Countries</a></div>
+            {% else %}
+                <div class="flex hover:bg-green-400 rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_countries_index') }}">Countries</a></div>
+            {% endif %}
+            {% if app.request.attributes.get('_route') == 'app_av_forms_index'  %}
+                <div class="flex bg-green-500 rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_forms_index') }}">Forms</a></div>
+            {% else %}
+                <div class="flex hover:bg-green-500 rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_forms_index') }}">Forms</a></div>
+            {% endif %}
+            {% if app.request.attributes.get('_route') == 'app_av_user_index'  %}
+                 <div class="flex bg-green-600 rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_user_index') }}">Profils</a></div>
+            {% else %}
+                 <div class="flex hover:bg-green-600 rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_user_index') }}">Profils</a></div>
+            {% endif %}
             <div class="flex hover:bg-green-700 hover:text-white rounded w-full h-full items-center justify-around "><a href="{{ path('app_av_logout') }}">Log out</a></div>
         </header>
     {% endif %}
 
-    <body class="w-full h-screen bg-green-50">
+    <body class="w-full h-screen bg-green-50 dark:bg-gray-900 dark:text-white">
         {% block body %}
             {% if not app.user %}
              <script>window.location.href = "{{ path('app_av_login') }}";</script>
