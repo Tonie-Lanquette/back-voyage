@@ -40,11 +40,10 @@
                     </td>
                 
                     <td class="flex justify-end px-5 py-3">
-                        {# <a class="hover:dark:bg-green-700 hover:bg-green-300 px-2 py-1 rounded mx-1" href="{{ path('app_av_categories_show', {'name': av_category.name}) }}">show</a> #}
                         <a class="hover:dark:bg-green-700 hover:bg-green-300 px-2 py-1 rounded" href="{{ path('app_av_categories_edit', {'name': av_category.name}) }}">Edit</a>
                     </td>
                 </tr> 
-                {% endfor %}
+             {% endfor %}   
             </tbody>
         </table>
 </div>

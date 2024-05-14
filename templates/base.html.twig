@@ -33,10 +33,10 @@
             {% else %}
                 <div class="flex hover:bg-green-400 rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_countries_index') }}">Countries</a></div>
             {% endif %}
-            {% if app.request.attributes.get('_route') == 'app_av_forms_index'  %}
-                <div class="flex bg-green-500 rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_forms_index') }}">Forms</a></div>
+            {% if app.request.attributes.get('_route') == 'app_av_booking_index'  %}
+                <div class="flex bg-green-500 rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_booking_index') }}">Reservation</a></div>
             {% else %}
-                <div class="flex hover:bg-green-500 rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_forms_index') }}">Forms</a></div>
+                <div class="flex hover:bg-green-500 rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_booking_index') }}">Reservation</a></div>
             {% endif %}
             {% if app.request.attributes.get('_route') == 'app_av_user_index'  %}
                  <div class="flex bg-green-600 rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_user_index') }}">Profils</a></div>
