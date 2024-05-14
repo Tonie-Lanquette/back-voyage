@@ -6,11 +6,15 @@ use App\Repository\AvUserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\NoSuspiciousCharacters;
 
 #[ORM\Entity(repositoryClass: AvUserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+#[UniqueEntity(fields: ['email'], message: 'Cet email est déjà utilisé')]
 class AvUser implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -31,15 +35,27 @@ class AvUser implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Assert\NotBlank(message: "Le mot de passe ne peut pas être vide.")]
+    #[Assert\Length(min: 5, max: 70, minMessage: "Le mot de passe doit comporter plus de {{ limit }} caractères.", maxMessage: "Le mot de passe doit comporter maximum {{ limit }} caractères.")]
+    #[Assert\NoSuspiciousCharacters(checks: NoSuspiciousCharacters::CHECK_INVISIBLE, restrictionLevel: NoSuspiciousCharacters::RESTRICTION_LEVEL_HIGH)]
     private ?string $password = null;
 
     #[ORM\Column(length: 100)]
+    #[Assert\NotBlank(message: "Le prénom ne peut pas être vide.")]
+    #[Assert\Length(min: 5, max: 50, minMessage: "Le prénom doit comporter plus de {{ limit }} caractères.", maxMessage: "Le prénom doit comporter maximum {{ limit }} caractères.")]
+    #[Assert\NoSuspiciousCharacters(checks: NoSuspiciousCharacters::CHECK_INVISIBLE, restrictionLevel: NoSuspiciousCharacters::RESTRICTION_LEVEL_HIGH)]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 100)]
+    #[Assert\NotBlank(message: "Le nom ne peut pas être vide.")]
+    #[Assert\Length(min: 5, max: 50, minMessage: "Le nom doit comporter plus de {{ limit }} caractères.", maxMessage: "Le nom doit comporter maximum {{ limit }} caractères.")]
+    #[Assert\NoSuspiciousCharacters(checks: NoSuspiciousCharacters::CHECK_INVISIBLE, restrictionLevel: NoSuspiciousCharacters::RESTRICTION_LEVEL_HIGH)]
     private ?string $lastName = null;
 
     #[ORM\Column(length: 15)]
+    #[Assert\NotBlank(message: "Le numéro de téléphone ne peut pas être vide.")]
+    #[Assert\Length(min: 10, max: 15, minMessage: "Le numéro de téléphone doit comporter plus de {{ limit }} caractères.", maxMessage: "Le numéro de téléphone doit comporter maximum {{ limit }} caractères.")]
+    #[Assert\NoSuspiciousCharacters(checks: NoSuspiciousCharacters::CHECK_INVISIBLE, restrictionLevel: NoSuspiciousCharacters::RESTRICTION_LEVEL_HIGH)]
     private ?string $phone = null;
 
     /**
@@ -51,8 +67,11 @@ class AvUser implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, avForms>
      */
-    #[ORM\OneToMany(targetEntity: avForms::class, mappedBy: 'avUser')]
+    #[ORM\OneToMany(targetEntity: AvForms::class, mappedBy: 'avUser')]
     private Collection $avForms;
+
+    #[ORM\Column]
+    private bool $isVerified = false;
 
     public function __construct()
     {
@@ -226,6 +245,18 @@ class AvUser implements UserInterface, PasswordAuthenticatedUserInterface
                 $avForm->setAvUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setVerified(bool $isVerified): static
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }

@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/av/user')]
@@ -42,7 +43,7 @@ class AvUserController extends AbstractController
         ]);
     }
 
-    #[Route('/{name}', name: 'app_av_user_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_av_user_show', methods: ['GET'])]
     public function show(AvUser $avUser): Response
     {
         return $this->render('av_user/show.html.twig', [
@@ -50,13 +51,15 @@ class AvUserController extends AbstractController
         ]);
     }
 
-    #[Route('/{name}/edit', name: 'app_av_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, AvUser $avUser, EntityManagerInterface $entityManager): Response
+    #[Route('/{id}/edit', name: 'app_av_user_edit', methods: ['GET', 'POST', 'PUT'])]
+    public function edit(Request $request, AvUser $avUser, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userHasher): Response
     {
-        $form = $this->createForm(AvUserType::class, $avUser);
+        
+        $form = $this->createForm(AvUserType::class, $avUser, ['method' => 'POST']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $avUser->setPassword($userHasher->hashPassword($avUser,$form->get('password')->getData()));
             $entityManager->flush();
 
             return $this->redirectToRoute('app_av_user_index', [], Response::HTTP_SEE_OTHER);
@@ -68,7 +71,7 @@ class AvUserController extends AbstractController
         ]);
     }
 
-    #[Route('/{name}', name: 'app_av_user_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_av_user_delete', methods: ['POST'])]
     public function delete(Request $request, AvUser $avUser, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$avUser->getId(), $request->getPayload()->get('_token'))) {

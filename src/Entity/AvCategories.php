@@ -6,6 +6,8 @@ use App\Repository\AvCategoriesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\NoSuspiciousCharacters;
 
 #[ORM\Entity(repositoryClass: AvCategoriesRepository::class)]
 class AvCategories
@@ -16,6 +18,9 @@ class AvCategories
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message: "Le nom de la catégorie ne peut pas être vide.")]
+    #[Assert\Length(min: 5, max: 50, minMessage: "Le nom de la catégorie doit comporter plus de {{ limit }} caractères.", maxMessage: "Le nom de la catégorie doit comporter maximum {{ limit }} caractères.")]
+    #[Assert\NoSuspiciousCharacters(checks: NoSuspiciousCharacters::CHECK_INVISIBLE, restrictionLevel: NoSuspiciousCharacters::RESTRICTION_LEVEL_HIGH)]
     private ?string $name = null;
 
     /**
