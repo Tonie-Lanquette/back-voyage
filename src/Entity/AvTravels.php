@@ -24,7 +24,7 @@ class AvTravels
     #[Assert\NotBlank(message: "L'image ne peut pas être vide.")]
     #[Assert\Length(min: 5, max: 500, minMessage: "Le lien doit comporter plus de {{ limit }} caractères.", maxMessage: "Le lien doit comporter maximum {{ limit }} caractères.")]
     #[Assert\NoSuspiciousCharacters(checks: NoSuspiciousCharacters::CHECK_INVISIBLE, restrictionLevel: NoSuspiciousCharacters::RESTRICTION_LEVEL_HIGH)]
-    #[Groups(['api_av_travels_index'])]
+    #[Groups(['api_av_travels_index', 'api_av_travels_image'])]
     private ?string $picture = null;
 
     #[ORM\Column(length: 255)]
@@ -35,7 +35,7 @@ class AvTravels
     private ?string $name = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Groups(['api_av_travels_index'])]
+    #[Groups(['api_av_travels_show'])]
     private ?\DateTimeInterface $dateStart = null;
 
     #[ORM\Column]
@@ -56,7 +56,7 @@ class AvTravels
      * @var Collection<int, avCountries>
      */
     #[ORM\ManyToMany(targetEntity: AvCountries::class, inversedBy: 'avTravels')]
-    #[Groups(['api_av_travels_show'])]
+    #[Groups(['api_av_travels_index'])]
     private Collection $avCountries;
 
    
@@ -76,7 +76,7 @@ class AvTravels
      * @var Collection<int, AvCategories>
      */
     #[ORM\ManyToMany(targetEntity: AvCategories::class, inversedBy: 'avTravels')]
-    #[Groups(['api_av_travels_show'])]
+    #[Groups(['api_av_travels_index'])]
     private Collection $AvCategories;
 
     public function __construct()
