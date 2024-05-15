@@ -1,33 +1,71 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}AvBooking index{% endblock %}
+{% block title %}Booking index{% endblock %}
 
 {% block body %}
-    <h1>AvBooking index</h1>
+    
+<div <div class="flex flex-col items-center w-full mt-20">
+<a class="hover:dark:bg-green-600 dark:bg-green-700 bg-green-500 hover:bg-green-600 px-2 py-1 rounded" href="{{ path('app_av_booking_new') }}">Create new reservation</a>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg w-5/6 mt-10">
+        <table class="w-full text-sm text-left rtl:text-right text-grey-950 dark:text-white">
+            <thead class="text-xs text-gray-950 uppercase bg-green-500 dark:bg-green-800 dark:text-white">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                    ID
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <div class="flex justify-center">
+                            ID Forms
+                        </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <div class="flex justify-center">
+                            ID Travel
+                        </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <div class="flex justify-center">
+                            Status
+                        </div>
+                    </th>
+                     <th scope="col" class="px-6 py-3">
+                        <div class="flex justify-end">
+                            Action
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>       
+                {% for av_booking in av_bookings %}
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                         <td class="px-6 py-4">
+                            <div class="flex ">
+                                {{ av_booking.id }}
+                            </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="flex justify-center">
+                                {{ av_booking.avForms.id }}
+                            </div>
+                        </td>
+                         <td class="px-6 py-4">
+                            <div class="flex justify-center">
+                                {{ av_booking.avTravels.id }}
+                            </div>
+                        </td>
+                        <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <div class="flex justify-center">
+                                {{ av_booking.avStatus.name }}
+                            </div>
+                        </td>
+                        <td class="flex justify-end px-5 py-3">    
+                            <a class="hover:dark:bg-green-700 hover:bg-green-500 px-2 py-1 rounded" href="{{ path('app_av_booking_edit', {'id': av_booking.id}) }}">Edit</a>
+                         </td>
+                    </tr> 
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for av_booking in av_bookings %}
-            <tr>
-                <td>{{ av_booking.id }}</td>
-                <td>
-                    <a href="{{ path('app_av_booking_show', {'id': av_booking.id}) }}">show</a>
-                    <a href="{{ path('app_av_booking_edit', {'id': av_booking.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="2">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_av_booking_new') }}">Create new</a>
 {% endblock %}

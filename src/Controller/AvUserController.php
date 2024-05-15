@@ -24,13 +24,14 @@ class AvUserController extends AbstractController
     }
 
     #[Route('/new', name: 'app_av_user_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userHasher): Response
     {
         $avUser = new AvUser();
         $form = $this->createForm(AvUserType::class, $avUser);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $avUser->setPassword($userHasher->hashPassword($avUser, $form->get('password')->getData()));
             $entityManager->persist($avUser);
             $entityManager->flush();
 

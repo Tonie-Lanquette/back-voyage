@@ -3,6 +3,7 @@
 {% block title %}AvCountries index{% endblock %}
 
 {% block body %}
+{% if is_granted('ROLE_ADMIN') %}
     <div <div class="flex flex-col items-center w-full mt-20">
 <a class="hover:dark:bg-green-600 dark:bg-green-700 bg-green-400 hover:bg-green-500 px-2 py-1 rounded" href="{{ path('app_av_countries_new') }}">Create new countries</a>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg w-5/6 mt-10">
@@ -37,7 +38,6 @@
                     </td>
                 
                     <td class="flex justify-end px-5 py-3">
-                        {# <a class="hover:dark:bg-green-700 hover:bg-green-400 px-2 py-1 rounded mx-1" href="{{ path('app_av_countries_show', {'name': av_countries.name}) }}">show</a> #}
                         <a class="hover:dark:bg-green-700 hover:bg-green-400 px-2 py-1 rounded" href="{{ path('app_av_countries_edit', {'name': av_countries.name}) }}">Edit</a>
                     </td>
                 </tr> 
@@ -45,4 +45,7 @@
             </tbody>
         </table>
 </div>
+{% else %}
+<script>window.location.href = "{{ path('app_av_travels_index') }}";</script>
+{% endif %}
 {% endblock %}

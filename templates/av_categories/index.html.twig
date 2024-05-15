@@ -4,7 +4,7 @@
 
 {% block body %}
 
-
+{% if is_granted('ROLE_ADMIN') %}
 
 <div <div class="flex flex-col items-center w-full mt-20">
 <a class="hover:dark:bg-green-600 dark:bg-green-700 bg-green-300 hover:bg-green-400 px-2 py-1 rounded" href="{{ path('app_av_categories_new') }}">Create new category</a>
@@ -40,14 +40,16 @@
                     </td>
                 
                     <td class="flex justify-end px-5 py-3">
-                        {# <a class="hover:dark:bg-green-700 hover:bg-green-300 px-2 py-1 rounded mx-1" href="{{ path('app_av_categories_show', {'name': av_category.name}) }}">show</a> #}
                         <a class="hover:dark:bg-green-700 hover:bg-green-300 px-2 py-1 rounded" href="{{ path('app_av_categories_edit', {'name': av_category.name}) }}">Edit</a>
                     </td>
                 </tr> 
-                {% endfor %}
+             {% endfor %}   
             </tbody>
         </table>
 </div>
 </div>
+{% else %}
+<script>window.location.href = "{{ path('app_av_travels_index') }}";</script>
+{% endif %}
 
 {% endblock %}

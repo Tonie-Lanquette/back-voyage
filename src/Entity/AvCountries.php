@@ -6,6 +6,7 @@ use App\Repository\AvCountriesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\NoSuspiciousCharacters;
 
@@ -21,6 +22,7 @@ class AvCountries
     #[Assert\NotBlank(message: "Le nom du pays ne peut pas être vide.")]
     #[Assert\Length(min: 5, max: 70, minMessage: "Le nom du pays doit comporter plus de {{ limit }} caractères.", maxMessage: "Le nom du pays doit comporter maximum {{ limit }} caractères.")]
     #[Assert\NoSuspiciousCharacters(checks: NoSuspiciousCharacters::CHECK_INVISIBLE, restrictionLevel: NoSuspiciousCharacters::RESTRICTION_LEVEL_HIGH)]
+    #[Groups(['api_av_travels_index'])]
     private ?string $name = null;
 
     /**

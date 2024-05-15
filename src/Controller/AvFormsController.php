@@ -11,10 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/av/contact')]
+#[Route('/av/form')]
 class AvFormsController extends AbstractController
 {
-    #[Route('', name: 'app_av_forms_index', methods: ['GET'])]
+    #[Route('s', name: 'app_av_forms_index', methods: ['GET'])]
     public function index(AvFormsRepository $avFormsRepository): Response
     {
         return $this->render('av_forms/index.html.twig', [

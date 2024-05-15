@@ -13,9 +13,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AvTravelsType extends AbstractType
 {
+    
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+    
             ->add('picture')
             ->add('name')
             ->add('dateStart', null, [
@@ -34,11 +36,8 @@ class AvTravelsType extends AbstractType
                 'class' => AvCountries::class,
                 'choice_label' => 'name',
                 'multiple' => true,
-            ])
-            ->add('avUser', EntityType::class, [
-                'class' => AvUser::class,
-                'choice_label' => 'email',
-            ]);
+             ]);
+            
     }
 
     public function configureOptions(OptionsResolver $resolver): void

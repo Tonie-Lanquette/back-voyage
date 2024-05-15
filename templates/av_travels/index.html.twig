@@ -3,7 +3,7 @@
 {% block title %}AvTravels index{% endblock %}
 
 {% block body %}
-<div <div class="flex flex-col items-center w-full mt-20">
+<div <div class="flex flex-col items-center w-full mt-24">
     <a class="hover:dark:bg-green-600 dark:bg-green-700 bg-green-200 hover:bg-green-300 px-2 py-1 rounded" href="{{ path('app_av_travels_new') }}">Create new travel</a>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg w-5/6 mt-10">
             <table class="w-full text-sm text-left rtl:text-right text-grey-950 dark:text-white">
@@ -105,63 +105,18 @@
                                 {% endfor %}
                             </div>
                         </td>
-                        <td class="flex flex-col items-center px-5 py-3 ">
-                            <a class="hover:dark:bg-green-700 hover:bg-green-200 px-2 py-1 rounded mx-1" href="{{ path('app_av_travels_show', {'name': av_travel.name}) }}">show</a>
-                            <a class="hover:dark:bg-green-700 hover:bg-green-200 px-2 py-1 rounded" href="{{ path('app_av_travels_edit', {'name': av_travel.name}) }}">edit</a>
+                        <td class="px-6 py-4 ">
+                            <div class="flex flex-col items-center justify-center">
+                                <a class="hover:dark:bg-green-700 hover:bg-green-200 px-2 py-1 rounded mx-1" href="{{ path('app_av_travels_show', {'name': av_travel.name}) }}">show</a>
+                                {% if is_granted('ROLE_ADMIN') or app.user.id == av_travel.avUser.id %}
+                                    <a class="hover:dark:bg-green-700 hover:bg-green-200 px-2 py-1 rounded" href="{{ path('app_av_travels_edit', {'name': av_travel.name}) }}">edit</a>
+                                {% endif %} 
+                             </div>    
                         </td>
                     </tr> 
                     {% endfor %}
                 </tbody>
             </table>
         </div>
-
-    {# <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Picture</th>
-                <th>Name</th>
-                <th>DateStart</th>
-                <th>Duration</th>
-                <th>Price</th>
-                <th>Categories</th>
-                <th>Countries</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for av_travel in av_travels %}
-            <tr>
-                <td>{{ av_travel.id }}</td>
-                <td><img src="{{ av_travel.picture }}" alt="Travel Image"></td>
-                <td>{{ av_travel.name }}</td>
-                <td>{{ av_travel.dateStart ? av_travel.dateStart|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ av_travel.duration }}</td>
-                <td>{{ av_travel.price }}</td>
-                 <td>
-                    {% for category in av_travel.avCategories %}
-                        {{ category.name }}
-                        {% if not loop.last %}, {% endif %}
-                    {% endfor %}
-                </td>
-                <td>
-                    {% for country in av_travel.avCountries %}
-                        {{ country.name }}
-                        {% if not loop.last %}, {% endif %}
-                    {% endfor %}
-                </td>
-                <td>
-                    <a href="{{ path('app_av_travels_show', {'name': av_travel.name}) }}">show</a>
-                    <a href="{{ path('app_av_travels_edit', {'name': av_travel.name}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_av_travels_new') }}">Create new</a> #}
+</div>
 {% endblock %}
