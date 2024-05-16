@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}AvCountries index{% endblock %}
+
+{% block body %}
+{% if is_granted('ROLE_ADMIN') %}
+    <div <div class="flex flex-col items-center w-full mt-20">
+<a class="hover:dark:bg-green-600 dark:bg-green-700 bg-green-400 hover:bg-green-500 px-2 py-1 rounded" href="{{ path('app_av_countries_new') }}">Create new countries</a>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg w-5/6 mt-10">
+        <table class="w-full text-sm text-left rtl:text-right text-grey-950 dark:text-white">
+            <thead class="text-xs text-zinc-950 uppercase bg-green-400 dark:bg-green-800 dark:text-white">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        ID
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <div class="flex justify-center">
+                            Name
+                        </div>
+                    </th>
+                     <th scope="col" class="px-6 py-3">
+                        <div class="flex justify-end">
+                            Action
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for av_countries in av_countries %}
+                <tr class="bg-white border-b dark:bg-zinc-800 dark:border-zinc-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-zinc-900 whitespace-nowrap dark:text-white">
+                        {{ av_countries.id }}
+                    </th>
+                    <td class="px-6 py-4">
+                        <div class="flex justify-center">
+                            {{ av_countries.name }}
+                        </div>
+                    </td>
+                
+                    <td class="flex justify-end px-5 py-3">
+                        <a class="hover:dark:bg-green-700 hover:bg-green-400 px-2 py-1 rounded" href="{{ path('app_av_countries_edit', {'name': av_countries.name}) }}">Edit</a>
+                    </td>
+                </tr> 
+                {% endfor %}
+            </tbody>
+        </table>
+</div>
+{% else %}
+<script>window.location.href = "{{ path('app_av_travels_index') }}";</script>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+
+{% if app.user %}
+    <div class="flex justify-center item-center mt-14">
+        <h1>Vous êtes bien connecté, passez une bonne journée !</h1>
+    </div>
+{% else %}
+    <script>window.location.href = "{{ path('app_av_login') }}";</script>
+{% endif %}
+
+{% endblock %}
