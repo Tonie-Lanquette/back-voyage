@@ -18,17 +18,11 @@ class AvTravelsController extends AbstractController
         return $this->json($travels,  context: ['groups' => 'api_av_travels_index']);
     }
 
-    #[Route('/image', name: 'api_av_travels_image')]
-    public function image(AvTravelsRepository $avTravelsRepository)
+    #[Route('s/show', name: 'api_av_travels_show')]
+    public function show(AvTravelsRepository $avTravelsRepository)
     {
         $travels = $avTravelsRepository->findAll();
-        return $this->json($travels, context: ['groups' => 'api_av_travels_image']);
-    }
-    #[Route('/{name}', name: 'api_av_travels_show')]
-    public function show(AvTravels $avTravels)
-    {
-       
-        return $this->json($avTravels, context: ['groups' => 'api_av_travels_index', 'api_av_travels_show']);
+        return $this->json($travels, context: ['groups' =>['api_av_travels_show' ,'api_av_travels_index'] ]);
     }
 
     

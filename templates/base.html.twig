@@ -16,41 +16,41 @@
 
 
     {% if app.user %}
-        <header class ="flex w-100 h-24 bg-white dark:bg-gray-800 dark:text-white font-bold ">
+        <header class ="flex w-100 h-24 bg-white dark:bg-zinc-800 dark:text-white font-bold ">
         
             {% if app.request.attributes.get('_route') == 'app_av_travels_index'  %}
-                <div class="flex bg-green-200 dark:text-black rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_travels_index') }}">Travels</a></div>
+                <a class="flex bg-green-200 dark:text-black rounded w-full h-full items-center justify-around" href="{{ path('app_av_travels_index') }}">Travels</a>
             {% else %}
-                <div class="flex hover:bg-green-200 dark:hover:text-black rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_travels_index') }}">Travels</a></div>    
+                <a class="flex hover:bg-green-200 dark:hover:text-black rounded w-full h-full items-center justify-around" href="{{ path('app_av_travels_index') }}">Travels</a>   
             {% endif %}
             {% if is_granted('ROLE_ADMIN') %}    
                 {% if app.request.attributes.get('_route') == 'app_av_categories_index'  %}
-                    <div class="flex bg-green-300 dark:text-black rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_categories_index') }}">Categories</a></div>
+                    <a class="flex bg-green-300 dark:text-black rounded w-full h-full items-center justify-around" href="{{ path('app_av_categories_index') }}">Categories</a>
                 {% else %}
-                    <div class="flex hover:bg-green-300 dark:hover:text-black rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_categories_index') }}">Categories</a></div> 
+                    <a class="flex hover:bg-green-300 dark:hover:text-black rounded w-full h-full items-center justify-around" href="{{ path('app_av_categories_index') }}">Categories</a>
                 {% endif %}
             
                 {% if app.request.attributes.get('_route') == 'app_av_countries_index'  %}
-                    <div class="flex bg-green-400 rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_countries_index') }}">Countries</a></div>
+                    <a class="flex bg-green-400 rounded w-full h-full items-center justify-around" href="{{ path('app_av_countries_index') }}">Countries</a>
                 {% else %}
-                    <div class="flex hover:bg-green-400 rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_countries_index') }}">Countries</a></div>
+                   <a class="flex hover:bg-green-400 rounded w-full h-full items-center justify-around" href="{{ path('app_av_countries_index') }}">Countries</a>
                 {% endif %}
             {% endif %}
             {% if app.request.attributes.get('_route') == 'app_av_booking_index'  %}
-                <div class="flex bg-green-500 rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_booking_index') }}">Reservation</a></div>
+                <a class="flex bg-green-500 rounded w-full h-full items-center justify-around" href="{{ path('app_av_booking_index') }}">Reservation</a>
             {% else %}
-                <div class="flex hover:bg-green-500 rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_booking_index') }}">Reservation</a></div>
+                <a class="flex hover:bg-green-500 rounded w-full h-full items-center justify-around" href="{{ path('app_av_booking_index') }}">Reservation</a>
             {% endif %}
             {% if app.request.attributes.get('_route') == 'app_av_user_index'  %}
-                 <div class="flex bg-green-600 rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_user_index') }}">Profils</a></div>
+                <a class="flex bg-green-600 rounded w-full h-full items-center justify-around" href="{{ path('app_av_user_index') }}">Profils</a>
             {% else %}
-                 <div class="flex hover:bg-green-600 rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_user_index') }}">Profils</a></div>
+                <a class="flex hover:bg-green-600 rounded w-full h-full items-center justify-around" href="{{ path('app_av_user_index') }}">Profils</a>
             {% endif %}
-            <div class="flex hover:bg-green-700 hover:text-white rounded w-full h-full items-center justify-around "><a href="{{ path('app_av_logout') }}">Log out</a></div>
+                <a class="flex hover:bg-green-700 hover:text-white rounded w-full h-full items-center justify-around " href="{{ path('app_av_logout') }}">Log out</a>
         </header>
     {% endif %}
 
-    <body class="w-full h-screen bg-green-50 dark:bg-gray-900 dark:text-white">
+    <body class="w-full h-screen bg-green-50 dark:bg-zinc-900 dark:text-white">
         {% block body %}
             {% if not app.user %}
              <script>window.location.href = "{{ path('app_av_login') }}";</script>
@@ -60,7 +60,7 @@
 {# 
     {% if not app.user %}
         <script>window.location.href = "{{ path('app_av_login') }}";</script>
-            <body class="w-full h-screen bg-gray-100">
+            <body class="w-full h-screen bg-zinc-100">
                 {% block body %}
                 {% endblock %}     
             </body>
@@ -74,7 +74,7 @@
             <div class="flex hover:bg-green-600 rounded w-full h-full items-center justify-around"><a href="{{ path('app_av_user_index') }}">Profils</a></div>
             <div class="flex hover:bg-green-700 hover:text-white rounded w-full h-full items-center justify-around "><a href="{{ path('app_av_logout') }}">Log out</a></div>
         </header>
-         <body class="w-full h-screen bg-gray-100">
+         <body class="w-full h-screen bg-zinc-100">
          {% block body %}
          {% endblock %}
           </body>

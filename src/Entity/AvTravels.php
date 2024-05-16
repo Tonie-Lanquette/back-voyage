@@ -24,7 +24,7 @@ class AvTravels
     #[Assert\NotBlank(message: "L'image ne peut pas être vide.")]
     #[Assert\Length(min: 5, max: 500, minMessage: "Le lien doit comporter plus de {{ limit }} caractères.", maxMessage: "Le lien doit comporter maximum {{ limit }} caractères.")]
     #[Assert\NoSuspiciousCharacters(checks: NoSuspiciousCharacters::CHECK_INVISIBLE, restrictionLevel: NoSuspiciousCharacters::RESTRICTION_LEVEL_HIGH)]
-    #[Groups(['api_av_travels_index', 'api_av_travels_image'])]
+    #[Groups(['api_av_travels_index'])]
     private ?string $picture = null;
 
     #[ORM\Column(length: 255)]
