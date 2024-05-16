@@ -22,7 +22,7 @@ class AvCategories
     #[Assert\NotBlank(message: "Le nom de la catégorie ne peut pas être vide.")]
     #[Assert\Length(min: 5, max: 50, minMessage: "Le nom de la catégorie doit comporter plus de {{ limit }} caractères.", maxMessage: "Le nom de la catégorie doit comporter maximum {{ limit }} caractères.")]
     #[Assert\NoSuspiciousCharacters(checks: NoSuspiciousCharacters::CHECK_INVISIBLE, restrictionLevel: NoSuspiciousCharacters::RESTRICTION_LEVEL_HIGH)]
-    #[Groups(['api_av_travels_index'])]
+    #[Groups(['api_av_travels_index', 'api_av_categories_index'])]
     private ?string $name = null;
 
     /**
