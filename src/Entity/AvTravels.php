@@ -35,7 +35,7 @@ class AvTravels
     private ?string $name = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Groups(['api_av_travels_index'])]
+    #[Groups(['api_av_travels_show'])]
     private ?\DateTimeInterface $dateStart = null;
 
     #[ORM\Column]
@@ -56,7 +56,7 @@ class AvTravels
      * @var Collection<int, avCountries>
      */
     #[ORM\ManyToMany(targetEntity: AvCountries::class, inversedBy: 'avTravels')]
-    #[Groups(['api_av_travels_show'])]
+    #[Groups(['api_av_travels_index'])]
     private Collection $avCountries;
 
    
@@ -76,7 +76,7 @@ class AvTravels
      * @var Collection<int, AvCategories>
      */
     #[ORM\ManyToMany(targetEntity: AvCategories::class, inversedBy: 'avTravels')]
-    #[Groups(['api_av_travels_show'])]
+    #[Groups(['api_av_travels_index'])]
     private Collection $AvCategories;
 
     public function __construct()

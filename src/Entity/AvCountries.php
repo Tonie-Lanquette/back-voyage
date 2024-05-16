@@ -22,7 +22,7 @@ class AvCountries
     #[Assert\NotBlank(message: "Le nom du pays ne peut pas être vide.")]
     #[Assert\Length(min: 5, max: 70, minMessage: "Le nom du pays doit comporter plus de {{ limit }} caractères.", maxMessage: "Le nom du pays doit comporter maximum {{ limit }} caractères.")]
     #[Assert\NoSuspiciousCharacters(checks: NoSuspiciousCharacters::CHECK_INVISIBLE, restrictionLevel: NoSuspiciousCharacters::RESTRICTION_LEVEL_HIGH)]
-    #[Groups(['api_av_travels_show'])]
+    #[Groups(['api_av_travels_index'])]
     private ?string $name = null;
 
     /**

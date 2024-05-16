@@ -7,7 +7,7 @@
     <a class="hover:dark:bg-green-600 dark:bg-green-700 bg-green-500 hover:bg-green-600 px-2 py-1 rounded" href="{{ path('app_av_forms_new') }}">Create new form</a>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg w-5/6 mt-10">
             <table class="w-full text-sm text-left rtl:text-right text-grey-950 dark:text-white">
-                <thead class="text-xs text-gray-950 uppercase bg-green-500 dark:bg-green-800 dark:text-white">
+                <thead class="text-xs text-zinc-950 uppercase bg-green-500 dark:bg-green-800 dark:text-white">
                     <tr>
                         <th scope="col" class="px-6 py-3">
                             ID
@@ -52,8 +52,8 @@
                 <tbody>
 
                 {% for av_form in av_forms %}
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 ">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <tr class="bg-white border-b dark:bg-zinc-800 dark:border-zinc-700 ">
+                        <th scope="row" class="px-6 py-4 font-medium text-zinc-900 whitespace-nowrap dark:text-white">
                             {{ av_form.id }}
                         </th>
                         <td class="px-6 py-4">
